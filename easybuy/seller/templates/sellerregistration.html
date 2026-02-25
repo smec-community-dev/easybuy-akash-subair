@@ -49,7 +49,8 @@
         }
         
         input[type="text"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="file"] {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
@@ -59,9 +60,26 @@
         }
         
         input[type="text"]:focus,
-        input[type="password"]:focus {
+        input[type="password"]:focus,
+        input[type="file"]:focus {
             outline: none;
             border-color: #667eea;
+        }
+        
+        /* Custom file input styling */
+        input[type="file"] {
+            padding: 10px;
+            background: #f9f9f9;
+            cursor: pointer;
+        }
+                .file-upload-wrapper {
+            position: relative;
+        }
+        
+        .file-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
         }
         
         .btn-submit {
@@ -109,7 +127,8 @@
     <div class="container">
         <h1>🏪 Seller Registration</h1>
         
-        <form method="POST" action="{% url 'selleregi' %}">
+        <!-- Added enctype for file upload -->
+        <form method="POST" action="{% url 'selleregi' %}" enctype="multipart/form-data">
             {% csrf_token %}
             
             <!-- Account Information -->
@@ -161,7 +180,15 @@
                 <input type="text" id="business_address" name="business_address" required placeholder="Enter your business address">
             </div>
             
-            <button type="submit" class="btn-submit">Register as Seller</button>
+            <!-- NEW: Document Upload Field -->
+            <div class="form-group">
+                <label for="doc">Upload Document *</label>
+                <div class="file-upload-wrapper">
+                    <input type="file" id="doc" name="doc" required accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                    <p class="file-hint">Accepted formats: PDF, JPG, PNG, DOC (Max size: 5MB)</p>
+                </div>
+            </div>
+                        <button type="submit" class="btn-submit">Register as Seller</button>
         </form>
         
         <p class="info-text">Your account will be reviewed by admin for approval.</p>

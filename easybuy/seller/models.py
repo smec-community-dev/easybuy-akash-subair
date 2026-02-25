@@ -11,6 +11,7 @@ class SellerProfile(models.Model):
     gst_number = models.CharField(max_length=50)
     pan_number = models.CharField(max_length=50)
     bank_account_number = models.CharField(max_length=50)
+    doc=models.FileField(upload_to='seller_documents/')
     ifsc_code = models.CharField(max_length=20)
     business_address = models.TextField()
     rating = models.FloatField(default=0)

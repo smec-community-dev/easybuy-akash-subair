@@ -16,6 +16,7 @@ def selleregi(request):
         store_name = request.POST.get("store_name")
         gst_number = request.POST.get("gst_number")
         pan_number = request.POST.get("pan_number")
+        doc=request.FILES.get('doc')
         bank_account_number = request.POST.get("bank_account_number")
         ifsc_code = request.POST.get("ifsc_code")
         business_address = request.POST.get("business_address")
@@ -32,6 +33,7 @@ def selleregi(request):
                 store_slug=slugify(store_name),
                 gst_number=gst_number,
                 pan_number=pan_number,
+                doc=doc,
                 bank_account_number=bank_account_number,
                 ifsc_code=ifsc_code,
                 business_address=business_address,
@@ -43,3 +45,16 @@ def selleregi(request):
 def product_list(request):
     products=Product.objects.all()
     return render(request,'all_product.html',{'products':products})
+
+
+
+
+
+
+
+
+
+
+
+
+
