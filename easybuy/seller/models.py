@@ -16,6 +16,8 @@ class SellerProfile(models.Model):
     rating = models.FloatField(default=0)
     is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.store_name
 
 
 class Product(models.Model):
@@ -32,6 +34,8 @@ class Product(models.Model):
     approval_status = models.CharField(max_length=20, default='PENDING')
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name
 
 
 class ProductVariant(models.Model):
@@ -51,7 +55,7 @@ class ProductVariant(models.Model):
 
 class ProductImage(models.Model):
     variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE, related_name="images")
-    image_url = models.URLField()
+    image = models.ImageField(upload_to='products/variants/',null=True, blank=True)
     alt_text = models.CharField(max_length=255, blank=True)
     is_primary = models.BooleanField(default=False)
 
