@@ -65,3 +65,9 @@ def seller_veri(request):
     unverified = SellerProfile.objects.filter(
         is_verified=False
     ).select_related('user')
+    return render(request,'seller_veri.html',{'unverified':unverified})
+
+
+def detailed_view(request,id):
+    details=SellerProfile.objects.select_related('user').get(pk=id)
+    return render(request,'details_view.html',{'details':details})
