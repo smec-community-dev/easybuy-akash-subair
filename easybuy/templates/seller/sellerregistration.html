@@ -128,7 +128,7 @@
         <h1>🏪 Seller Registration</h1>
         
         <!-- Added enctype for file upload -->
-        <form method="POST" action="{% url 'selleregi' %}" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'seller_register' %}" enctype="multipart/form-data">
             {% csrf_token %}
             
             <!-- Account Information -->
