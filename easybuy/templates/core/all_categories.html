@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>All Products | EasyBuy Premium</title>
+    <title>All Categories | EasyBuy Premium</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
@@ -49,8 +49,8 @@
                 <h1 class="text-xl font-bold leading-tight hidden sm:block">EasyBuy</h1>
             </a>
             <nav class="hidden xl:flex items-center gap-6">
-                <a class="text-sm font-medium hover:text-primary transition-colors text-primary" href="{% url 'all_products' %}">Shop All</a>
-                <a class="text-sm font-medium hover:text-primary transition-colors" href="{% url 'all_categories' %}">Categories</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="{% url 'all_products' %}">Shop All</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors text-primary" href="{% url 'all_categories' %}">Categories</a>
                 <a class="text-sm font-medium hover:text-primary transition-colors" href="{% url 'new_arrivals' %}">New Arrivals</a>
             </nav>
         </div>
@@ -93,9 +93,9 @@
     <main class="flex-1">
         <section class="bg-white border-b border-stone-100 py-16">
             <div class="mx-auto max-w-7xl px-4 lg:px-12 text-center">
-                <span class="text-xs font-black uppercase tracking-[0.3em] text-accent-terracotta mb-4 block">Premium Catalog</span>
-                <h1 class="text-5xl font-black text-stone-900 md:text-6xl tracking-tight">Explore All Products</h1>
-                <p class="mt-4 mx-auto max-w-xl text-stone-500 text-lg">A curated selection of the finest tech, handpicked for quality and performance.</p>
+                <span class="text-xs font-black uppercase tracking-[0.3em] text-accent-terracotta mb-4 block">Browse Collections</span>
+                <h1 class="text-5xl font-black text-stone-900 md:text-6xl tracking-tight">Shop by Category</h1>
+                <p class="mt-4 mx-auto max-w-xl text-stone-500 text-lg">Find exactly what you need by browsing our curated collections.</p>
             </div>
         </section>
 
@@ -103,55 +103,49 @@
             
             <div class="flex flex-col sm:flex-row justify-between items-center mb-12 gap-4">
                 <div class="text-sm font-bold text-stone-400">
-                    SHOWING <span class="text-stone-900">{{ page_obj.start_index }}-{{ page_obj.end_index }}</span> OF {{ page_obj.paginator.count }} PRODUCTS
-                </div>
-                <div class="flex gap-4">
-                    <button class="flex items-center gap-2 px-5 py-2.5 bg-white border border-stone-200 rounded-xl text-sm font-bold hover:bg-stone-50 transition-all">
-                        <span class="material-symbols-outlined text-sm">filter_list</span> Filters
-                    </button>
+                    SHOWING <span class="text-stone-900">{{ page_obj.start_index }}-{{ page_obj.end_index }}</span> OF {{ page_obj.paginator.count }} CATEGORIES
                 </div>
             </div>
 
             <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {% for pi in page_obj %}
+                {% for category in page_obj %}
+                <!-- Removed <a> tag wrapper -->
                 <div class="group relative flex flex-col rounded-[2.5rem] border border-stone-100 bg-white p-4 product-card-shadow transition-all hover:shadow-2xl hover:-translate-y-2">
                     
                     <div class="relative aspect-square w-full overflow-hidden rounded-[2rem] bg-stone-50 mb-5">
-                        {% if pi.image %}
-                            <img src="{{ pi.image.url }}" alt="{{ pi.variant.product.name }}" 
+                        {% if category.image_url %}
+                            <img src="{{ category.image_url.url }}" alt="{{ category.name }}" 
                                  class="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-110">
                         {% else %}
                             <div class="flex h-full w-full items-center justify-center bg-stone-100">
-                                <span class="material-symbols-outlined text-stone-300 text-6xl">image</span>
+                                <span class="material-symbols-outlined text-stone-300 text-6xl">category</span>
                             </div>
                         {% endif %}
                         
+                        <div class="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/5"></div>
                     </div>
 
-                    <div class="flex flex-1 flex-col px-2">
-                        <div class="flex justify-between items-start mb-1">
-                            <p class="text-[10px] font-black text-primary uppercase tracking-widest">{{ pi.variant.product.brand }}</p>
-                        </div>
-                        <h3 class="font-bold text-stone-900 text-lg leading-tight line-clamp-2 min-h-[3rem] group-hover:text-primary transition-colors">
-                            {{ pi.variant.product.name }}
+                    <div class="flex flex-1 flex-col px-2 text-center">
+                        <h3 class="font-bold text-stone-900 text-xl leading-tight group-hover:text-primary transition-colors">
+                            {{ category.name }}
                         </h3>
                         
-                        <div class="mt-6 flex items-end justify-between border-t border-stone-50 pt-4">
-                            <div class="flex flex-col">
-                                <span class="text-xs text-stone-400 line-through font-medium">₹{{ pi.variant.mrp }}</span>
-                                <span class="text-2xl font-black text-stone-900">₹{{ pi.variant.selling_price }}</span>
-                            </div>
-                            
-                            <button class="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary-dark hover:scale-105 transition-all">
-                                <span class="material-symbols-outlined">shopping_cart</span>
-                            </button>
+                        {% if category.description %}
+                        <p class="mt-2 text-sm text-stone-500 font-medium line-clamp-2">
+                            {{ category.description }}
+                        </p>
+                        {% endif %}
+
+                        <div class="mt-6 flex items-center justify-center gap-1 text-primary opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                            <span class="text-sm font-bold">Shop Now</span>
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
                         </div>
                     </div>
                 </div>
                 {% empty %}
                 <div class="col-span-full py-24 text-center">
-                    <span class="material-symbols-outlined text-7xl text-stone-200">inventory_2</span>
-                    <p class="text-stone-400 mt-4 text-lg font-medium italic">We couldn't find any products in our store.</p>
+                    <span class="material-symbols-outlined text-7xl text-stone-200">folder_off</span>
+                    <p class="text-stone-400 mt-4 text-lg font-medium italic">No categories found at the moment.</p>
                 </div>
                 {% endfor %}
             </div>

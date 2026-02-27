@@ -92,22 +92,14 @@
                 </div>
                 
                 <span class="hidden lg:block text-sm font-medium text-stone-700 dark:text-stone-200">{{ request.user.username|default:"Guest" }}</span>
-           {% if user.is_authenticated %}
-    <!-- Logout Button (When User is Logged In) -->
-    <form action="{% url 'logout' %}" method="post" class="m-0">
-        {% csrf_token %}
-        <button type="submit" class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-stone-50 text-stone-600 hover:bg-accent-terracotta hover:text-white transition-all duration-300 text-xs font-black uppercase tracking-widest">
-            <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
-            <span>Logout</span>
-        </button>
-    </form>
-{% else %}
-    <!-- Login Button (When User is NOT Logged In) -->
-    <a href="{% url 'all_login' %}" class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-primary text-white hover:bg-primary-dark transition-all duration-300 text-xs font-black uppercase tracking-widest">
-        <span class="material-symbols-outlined text-[18px]">login</span>
-        <span>Login</span>
-    </a>
-{% endif %}
+            </a>
+            <form action="{% url 'logout' %}" method="post" class="m-0">
+                {% csrf_token %}
+                <button type="submit" class="flex items-center gap-2 px-4 py-2 rounded-2xl bg-stone-50 text-stone-600 hover:bg-accent-terracotta hover:text-white transition-all duration-300 text-xs font-black uppercase tracking-widest">
+                    <span class="material-symbols-outlined text-[18px]">power_settings_new</span>
+                    <span>Logout</span>
+                </button>
+            </form>
         </div>
     </header>
 
@@ -136,21 +128,21 @@
                     <h2 class="text-3xl font-black text-stone-900 dark:text-white">Shop by Category</h2>
                     <p class="mt-2 text-stone-500">Find exactly what you're looking for</p>
                 </div>
-                <a class="font-bold text-primary hover:underline transition-all" href="{% url 'all_categories' %}">View All Categories</a>
+                <a class="font-bold text-primary hover:underline transition-all" href="#">View All Categories</a>
             </div>
             <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
-                {% for category in categories %}
+                {% for i in category %}
                 <div class="group flex flex-col items-center gap-4 text-center cursor-pointer">
                     <div class="relative flex aspect-square w-full items-center justify-center rounded-3xl bg-white shadow-sm ring-1 ring-stone-100 transition-all group-hover:shadow-xl group-hover:ring-primary/20 overflow-hidden dark:bg-surface-dark">
                         {% if category.image %}
-                            <img alt="{{ category.name }}" 
+                            <img alt="{{ i.name }}" 
                                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                                src="{{ category.image.url }}"/>
+                                src="{{ i.image.url }}"/>
                         {% else %}
                             <span class="material-symbols-outlined text-stone-300 text-5xl">category</span>
                         {% endif %}
                     </div>
-                    <span class="text-lg font-bold text-stone-800 dark:text-stone-200">{{ category.name }}</span>
+                    <span class="text-lg font-bold text-stone-800 dark:text-stone-200">{{ i.name }}</span>
                 </div>
                 {% empty %}
                 <div class="col-span-full py-10 text-center">

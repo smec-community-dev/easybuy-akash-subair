@@ -3,11 +3,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('core/', include('easybuy.core.urls')),
-    path('seller/',include('easybuy.seller.urls'))
+    path('seller/',include('easybuy.seller.urls')),
+    path('easy_admin/', include('easybuy.easybuy_admin.urls')),
+    path('user/', include('easybuy.user.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,8 +14,16 @@ class SellerProfile(models.Model):
     doc=models.FileField(upload_to='seller_documents/')
     ifsc_code = models.CharField(max_length=20)
     business_address = models.TextField()
+    CHOICES=(
+        ('APPROVED', 'approved'),
+        ('REJECTED', 'rejected'),
+        ('PENDING', 'pending'),)
+    status = models.CharField(
+        max_length=20,
+        choices=CHOICES,
+        default='PENDING'
+    )
     rating = models.FloatField(default=0)
-    is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.store_name
