@@ -218,3 +218,20 @@ This project is for educational purposes.
 
 Built with Django, Tailwind CSS, and Material Symbols.
 
+ADMIN:
+
+Username: admin
+
+Password: admin123
+
+SELLERS:
+
+Username: seller1, seller2, seller3
+
+Password: seller123
+
+CUSTOMERS:
+
+Username: customer1, customer2
+
+Password: customer123
